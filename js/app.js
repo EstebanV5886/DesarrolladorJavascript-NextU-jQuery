@@ -119,22 +119,18 @@ $(document).ready(function(){
 
     $("#notaMayorEstudiantes").click(function(){
 
-        let nota_mayor = 0;
-        let nombre_estudiante = '';
+        var estudianteMayor = $.parseJSON(localStorage.getItem(localStorage.key(0)))
     
-        for(var i = 0; i < localStorage.length; i++){
-
-            let clave = localStorage.key(i);
-            let estudiante = $.parseJSON(localStorage.getItem(clave));
-
-                if(nota_mayor < estudiante.nota){
-                    nota_mayor = estudiante.nota;
-                    nombre_estudiante = estudiante.nombre;
-                }           
-
+        for(var i = 0; i < localStorage.length; i++) {              
+          var clave = localStorage.key(i);
+          var estudiante = $.parseJSON(localStorage.getItem(clave));
+    
+          if(Number(estudianteMayor.nota) < Number(estudiante.nota)) {     
+            estudianteMayor = estudiante
+          }
         }
 
-         $("#resultadoNotaMayor").html("El estudiante con la nota mas alta es: " + nombre_estudiante + "y su nota es: " + nota_mayor);   
+         $("#resultadoNotaMayor").html("El estudiante con la nota mas alta es: " + estudianteMayor.nombre + " y su nota es: " + estudianteMayor.nota);   
     
     });
 
@@ -150,7 +146,7 @@ $(document).ready(function(){
             estudianteMenor = estudiante
           }
         }
-        $("#resultadoNotaMenor").html("El estudiante con la nota mas baja es: " + estudianteMenor.nombre + " " + "y su nota es:" +estudianteMenor.nota);
+        $("#resultadoNotaMenor").html("El estudiante con la nota mas baja es: " + estudianteMenor.nombre + " " + "y su nota es: " +estudianteMenor.nota);
     });
 
 });
